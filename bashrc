@@ -63,12 +63,12 @@ if [ -d $HOME/.atom ]; then
 fi
 
 # Autojump
-if [ -f /etc/profile.d/autojump.sh ] || [ -f /usr/local/etc/autojump.sh ]; then
+if [ -f /usr/share/autojump/autojump.bash ] || [ -f /usr/local/etc/autojump.sh ]; then
     export AUTOJUMP_KEEP_SYMLINKS=1
     export AUTOJUMP_AUTOCOMPLETE_CMDS='atom cp mv vim'
 
-    if [ -f /etc/profile.d/autojump.sh ]; then
-        source /etc/profile.d/autojump.sh
+    if [ -f /usr/share/autojump/autojump.bash ]; then
+        source /usr/share/autojump/autojump.bash
     else
         source /usr/local/etc/autojump.sh
     fi
@@ -106,6 +106,9 @@ if [ -d /usr/local/rbenv ] || [ -d /usr/local/opt/rbenv ]; then
 
     eval "$(rbenv init -)"
 fi
+
+# Vagrant
+export VAGRANT_HOME=/usr/local/vm/vagrant
 
 # Do this last to allow host-specific overrides
 source_if_exists "$HOME/.bashrc.$(hostname -s)"
