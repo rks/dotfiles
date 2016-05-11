@@ -17,6 +17,7 @@ function mkcd () {
 # Put /usr/local ahead of /usr to give priority to Homebrew/customized apps
 prepend_to_path_if_exists /usr/local/bin
 prepend_to_path_if_exists /usr/local/sbin
+prepend_to_path_if_exists /usr/local/netbin
 prepend_to_path_if_exists /local/bin
 prepend_to_path_if_exists $HOME/bin
 
