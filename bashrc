@@ -58,7 +58,7 @@ source_if_exists $HOME/.bash_aliases
 source_if_exists /usr/local/etc/bash_completion.d/ag.bashcomp.bash
 
 # Atom
-if [ -d $HOME/.atom ]; then
+if type atom &>/dev/null; then
     export EDITOR="atom -w"
     export VISUAL="atom -w"
 fi
