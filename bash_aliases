@@ -13,4 +13,4 @@ alias pgrep="pgrep -f -l"
 
 alias mw="/mathworks/hub/bat/common/bin/mw"
 
-alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
+alias fdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
