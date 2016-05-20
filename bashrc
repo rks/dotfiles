@@ -97,15 +97,18 @@ export P4CONFIG=.perforce
 export P4EDITOR=$EDITOR
 
 # rbenv
-if [ -d /usr/local/rbenv ] || [ -d /usr/local/opt/rbenv ]; then
-    if [ -d /usr/local/rbenv ]; then
-        export PATH=/usr/local/rbenv/bin:$PATH
-        export RBENV_ROOT=/usr/local/rbenv
-    else
-        export RBENV_ROOT=/usr/local/opt/rbenv
-    fi
+if [ -d /usr/local/rbenv ]; then
+    export PATH=/usr/local/rbenv/bin:$PATH
+    export RBENV_ROOT=/usr/local/rbenv
 
     eval "$(rbenv init -)"
+fi
+
+# Ruby
+if [ -d /opt/ruby/bin ]; then
+    export PATH=/opt/ruby/bin:$PATH
+    export GEM_SPEC_CACHE=/opt/ruby/gems/spec_cache
+    export BUNDLE_PATH=/opt/ruby/gems
 fi
 
 # Vagrant
