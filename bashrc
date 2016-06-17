@@ -75,6 +75,9 @@ if [ -f /usr/share/autojump/autojump.bash ] || [ -f /usr/local/etc/autojump.sh ]
     fi
 fi
 
+# Docker Compose
+prepend_to_path_if_exists /opt/docker/bin
+
 # Git
 prepend_to_path_if_exists /usr/local/opt/git/libexec/git-core
 source_if_exists /usr/local/etc/bash_completion.d/git-completion.bash
