@@ -3,6 +3,7 @@
 --ignore-dir=.snapshot
 --ignore-dir=coverage
 --ignore-dir=log
+--ignore-dir=target
 --ignore-dir=tmp
 --smart-case
 --sort-files
@@ -10,9 +11,10 @@
 --type-set=log:ext:log
 --type-set=markdown:ext:md
 --type-set=minified:match:/\.combined\.js$/
+--type-add=erb:match:/\.erb$/
+--type-add=html:match:/\.html\.erb$/
+--type-add=js:match:/\.js\.erb$/
 --type-add=minified:match:/\.min\.js$/
 --type-add=ruby:ext:rake,builder
 --type-add=ruby:is:Gemfile
---type-add=html:match:/\.html\.erb$/
---type-add=js:match:/\.js\.erb$/
 --nominified
