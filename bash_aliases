@@ -5,6 +5,8 @@ alias cp="cp -i"
 alias mv="mv -i"
 alias rm="rm -i"
 
+alias envs="env | sort"
+
 alias less="less -g -i -J -m -Q -u"
 
 alias bx="bundle exec"
