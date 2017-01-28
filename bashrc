@@ -52,6 +52,9 @@ set -o noclobber
 # Case-insensitive filename expansion
 shopt -s nocaseglob
 
+# Enable START/STOP output control.
+stty -ixon
+
 source_if_exists $HOME/.bash_aliases
 
 # Ag
