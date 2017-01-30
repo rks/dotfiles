@@ -117,5 +117,8 @@ fi
 # Vagrant
 export VAGRANT_HOME=/usr/local/vm/vagrant
 
+# Ruby development server
+source_if_exists "/sandbox/$USER/mw-ruby-development-server/env.bash"
+
 # Do this last to allow host-specific overrides
 source_if_exists "$HOME/.bashrc.$(hostname -s)"
