@@ -14,6 +14,10 @@ function mkcd () {
     mkdir -p $1 && cd $1;
 }
 
+function interactive_shell () {
+    [[ $- == *i* ]];
+}
+
 # Put /usr/local ahead of /usr to give priority to Homebrew/customized apps
 prepend_to_path_if_exists /usr/local/bin
 prepend_to_path_if_exists /usr/local/sbin
@@ -53,7 +57,9 @@ set -o noclobber
 shopt -s nocaseglob
 
 # Enable START/STOP output control.
-stty -ixon
+if interactive_shell; then
+    stty -ixon
+fi
 
 source_if_exists $HOME/.bash_aliases
 
@@ -98,9 +104,10 @@ prepend_to_path_if_exists /usr/local/share/npm/bin
 source_if_exists /usr/local/etc/bash_completion.d/npm
 
 # Perforce
-export P4PORT=perforce:1666
 export P4CONFIG=.perforce
 export P4EDITOR=$EDITOR
+export P4PORT=perforce:1666
+export P4USER=rsouza
 
 # rbenv
 if [ -d /usr/local/rbenv ]; then
@@ -116,9 +123,6 @@ if [ -d /opt/ruby/bin ]; then
     export GEM_SPEC_CACHE=/opt/ruby/gems/spec_cache
     export BUNDLE_PATH=/opt/ruby/gems
 fi
-
-# Vagrant
-export VAGRANT_HOME=/usr/local/vm/vagrant
 
 # Ruby development server
 source_if_exists "/sandbox/$USER/mw-ruby-development-server/env.bash"
