@@ -6,5 +6,5 @@ ln -s $SOURCE_PATH/bash_profile $HOME/.bash_profile;
 ln -s $SOURCE_PATH/bashrc $HOME/.bashrc;
 ln -s $SOURCE_PATH/gemrc $HOME/.gemrc;
 ln -s $SOURCE_PATH/inputrc $HOME/.inputrc;
+ln -s $SOURCE_PATH/irbrc $HOME/.irbrc;
 ln -s $SOURCE_PATH/pryrc $HOME/.pryrc;
-
