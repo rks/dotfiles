@@ -106,6 +106,8 @@ source_if_exists /usr/local/etc/bash_completion.d/npm
 # Perforce
 export P4CONFIG=.perforce
 export P4EDITOR=$EDITOR
+export P4IGNORE=.gitignore
+export P4LOGINSSO=/hub/bat/share/p4admin.latest/sso/sso-client
 export P4PORT=perforce:1666
 export P4USER=rsouza
 
