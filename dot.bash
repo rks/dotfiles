@@ -8,3 +8,4 @@ ln -s $SOURCE_PATH/gemrc $HOME/.gemrc;
 ln -s $SOURCE_PATH/inputrc $HOME/.inputrc;
 ln -s $SOURCE_PATH/irbrc $HOME/.irbrc;
 ln -s $SOURCE_PATH/pryrc $HOME/.pryrc;
+ln -s $SOURCE_PATH/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
