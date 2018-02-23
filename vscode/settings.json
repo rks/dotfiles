@@ -75,9 +75,17 @@
     "terminal.integrated.fontSize": 16,
     "workbench.colorCustomizations": {
         "editorWarning.foreground": "#ff9500",
-        "editorInfo.foreground": "#057eff"
+        "editorInfo.foreground": "#057eff",
+        "[RailsCasts Plus Theme]": {
+            // "activityBar.background": "#ff0000",
+            // "editorGutter.background": "#ff0000",
+            // "panel.background": "#ff0000",
+            // "sideBar.border": "#ff0000",
+            // "statusBar.border": "#ff0000",
+            // "titleBar.border": "#ff0000"
+        }
     },
-    "workbench.colorTheme": "Material Theme",
+    "workbench.colorTheme": "RailsCasts Plus Theme",
     "workbench.editor.enablePreview": false,
     "workbench.iconTheme": "file-icons-colourless",
     "workbench.startupEditor": "newUntitledFile"
