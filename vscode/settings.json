@@ -7,41 +7,6 @@
     "editor.multiCursorModifier": "ctrlCmd",
     "editor.rulers": [100],
     "editor.tabSize": 2,
-    "editor.wordWrapColumn": 100,
-    "files.exclude": {
-        "**/._*": true,
-        "**/.rubocop-http*": true,
-        "**/.DS_Store": true,
-        "**/.git": true,
-        "**/.hg": true,
-        "**/.svn": true,
-        "**/CVS": true
-    },
-    "files.insertFinalNewline": true,
-    "files.trimTrailingWhitespace": true,
-    "materialTheme.cache.workbench.settings": {
-        "themeColours": "Default"
-    },
-    "perforce.editOnFileModified": true,
-    "ruby.specClearTerminal": false,
-    "ruby.specCommand": "bundle exec rspec",
-    "search.exclude": {
-        "**/node_modules": true,
-        "**/bower_components": true,
-        "**/tmp": true
-    },
-    "terminal.external.osxExec": "iTerm.app",
-    "terminal.integrated.cursorStyle": "line",
-    "terminal.integrated.fontSize": 16,
-    "workbench.colorCustomizations": {
-        "editorWarning.foreground": "#ff9500",
-        "editorInfo.foreground": "#057eff"
-    },
-    "workbench.colorTheme": "Material Theme",
-    "workbench.editor.enablePreview": false,
-    "workbench.iconTheme": "file-icons-colourless",
-    "workbench.startupEditor": "newUntitledFile",
-
     "editor.tokenColorCustomizations": {
         "textMateRules": [
             {
@@ -81,5 +46,39 @@
                 }
             }
         ]
-    }
+    },
+    "editor.wordWrapColumn": 100,
+    "files.exclude": {
+        "**/._*": true,
+        "**/.rubocop-http*": true,
+        "**/.DS_Store": true,
+        "**/.git": true,
+        "**/.hg": true,
+        "**/.svn": true,
+        "**/CVS": true
+    },
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "materialTheme.cache.workbench.settings": {
+        "themeColours": "Default"
+    },
+    "perforce.editOnFileModified": true,
+    "ruby.specClearTerminal": false,
+    "ruby.specCommand": "bundle exec rspec",
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/tmp": true
+    },
+    "terminal.external.osxExec": "iTerm.app",
+    "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.fontSize": 16,
+    "workbench.colorCustomizations": {
+        "editorWarning.foreground": "#ff9500",
+        "editorInfo.foreground": "#057eff"
+    },
+    "workbench.colorTheme": "Material Theme",
+    "workbench.editor.enablePreview": false,
+    "workbench.iconTheme": "file-icons-colourless",
+    "workbench.startupEditor": "newUntitledFile"
 }
