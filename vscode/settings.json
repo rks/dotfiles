@@ -74,19 +74,26 @@
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.fontSize": 16,
     "workbench.colorCustomizations": {
-        "editorWarning.foreground": "#ff9500",
+        "editorIndentGuide.background": "#2f2f2f",
         "editorInfo.foreground": "#057eff",
+        "editorWarning.foreground": "#ff9500",
         "[RailsCasts Plus Theme]": {
-            // "activityBar.background": "#ff0000",
-            // "editorGutter.background": "#ff0000",
-            // "panel.background": "#ff0000",
-            // "sideBar.border": "#ff0000",
-            // "statusBar.border": "#ff0000",
-            // "titleBar.border": "#ff0000"
+            "editorGutter.background": "#222222",
+            "sideBar.border": "#202020",
+            "statusBar.border": "#1f1f1f",
+            "statusBar.background": "#333333",
+            "statusBar.noFolderBackground": "#222222",
+            "statusBar.foreground": "#b0b0b0",
+            "titleBar.border": "#404040"
         }
     },
     "workbench.colorTheme": "RailsCasts Plus Theme",
     "workbench.editor.enablePreview": false,
     "workbench.iconTheme": "file-icons-colourless",
-    "workbench.startupEditor": "newUntitledFile"
+    "workbench.startupEditor": "newUntitledFile",
+
+    // Language-specific
+    "[json]": {
+        "editor.tabSize": 4
+    }
 }
