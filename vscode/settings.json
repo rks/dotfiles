@@ -1,0 +1,85 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 16,
+    "editor.minimap.enabled": false,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.rulers": [100],
+    "editor.tabSize": 2,
+    "editor.wordWrapColumn": 100,
+    "files.exclude": {
+        "**/._*": true,
+        "**/.rubocop-http*": true,
+        "**/.DS_Store": true,
+        "**/.git": true,
+        "**/.hg": true,
+        "**/.svn": true,
+        "**/CVS": true
+    },
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "materialTheme.cache.workbench.settings": {
+        "themeColours": "Default"
+    },
+    "perforce.editOnFileModified": true,
+    "ruby.specClearTerminal": false,
+    "ruby.specCommand": "bundle exec rspec",
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/tmp": true
+    },
+    "terminal.external.osxExec": "iTerm.app",
+    "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.fontSize": 16,
+    "workbench.colorCustomizations": {
+        "editorWarning.foreground": "#ff9500",
+        "editorInfo.foreground": "#057eff"
+    },
+    "workbench.colorTheme": "Material Theme",
+    "workbench.editor.enablePreview": false,
+    "workbench.iconTheme": "file-icons-colourless",
+    "workbench.startupEditor": "newUntitledFile",
+
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": [
+                    "keyword.control"
+                ],
+                "settings": {
+                    "fontStyle": "",
+                    "foreground": "#c792ea"
+                }
+            },
+            {
+                "scope": [
+                    "punctuation.definition.variable.ruby",
+                    "variable.other.readwrite.instance.ruby"
+                ],
+                "settings": {
+                    "foreground": "#f07178"
+                }
+            },
+            {
+                "scope": [
+                    "entity.other.attribute-name.html",
+                    "entity.other.attribute-name.id.html"
+                ],
+                "settings": {
+                    "foreground": "#ffcb6b"
+                }
+            },
+            {
+                "scope": [
+                    "punctuation.section.embedded.begin.erb",
+                    "punctuation.section.embedded.end.erb"
+                ],
+                "settings": {
+                    "fontStyle": "bold"
+                }
+            }
+        ]
+    }
+}

@@ -1,6 +1,6 @@
 function prepend_to_path_if_exists () {
-    if [ -d $1 ]; then
-        export PATH=$1:$PATH
+    if [ -d "$1" ]; then
+        export PATH="$1":$PATH
     fi
 }
 
@@ -106,6 +106,8 @@ source_if_exists /usr/local/etc/bash_completion.d/npm
 # Perforce
 export P4CONFIG=.perforce
 export P4EDITOR=$EDITOR
+export P4IGNORE=.gitignore
+export P4LOGINSSO=/hub/bat/share/p4admin.latest/sso/sso-client
 export P4PORT=perforce:1666
 export P4USER=rsouza
 
@@ -126,6 +128,9 @@ fi
 
 # Ruby development server
 source_if_exists "/sandbox/$USER/mw-ruby-development-server/env.bash"
+
+# Visual Studio Code
+prepend_to_path_if_exists /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin
 
 # Do this last to allow host-specific overrides
 source_if_exists "$HOME/.bashrc.$(hostname -s)"
