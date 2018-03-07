@@ -95,5 +95,8 @@
     // Language-specific
     "[json]": {
         "editor.tabSize": 4
+    },
+    "[jsonc]": {
+        "editor.tabSize": 4
     }
 }
