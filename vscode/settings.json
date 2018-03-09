@@ -73,6 +73,7 @@
     "terminal.external.osxExec": "iTerm.app",
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.fontSize": 16,
+    "window.titleBarStyle": "native",
     "workbench.colorCustomizations": {
         "editorIndentGuide.background": "#2f2f2f",
         "editorInfo.foreground": "#057eff",
@@ -92,13 +93,14 @@
     "workbench.startupEditor": "newUntitledFile",
 
     // Language-specific
-    "[json]": {
-        "editor.tabSize": 4
-    },
     "[erb]": {
         "editor.rulers": [],
         "editor.tabSize": 4
     },
-    "workbench.colorTheme": "Castish",
-    "window.titleBarStyle": "native"
+    "[json]": {
+        "editor.tabSize": 4
+    },
+    "[jsonc]": {
+        "editor.tabSize": 4
+    }
 }
