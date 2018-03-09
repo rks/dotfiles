@@ -87,7 +87,6 @@
             "titleBar.border": "#404040"
         }
     },
-    "workbench.colorTheme": "RailsCasts Plus Theme",
     "workbench.editor.enablePreview": false,
     "workbench.iconTheme": "file-icons-colourless",
     "workbench.startupEditor": "newUntitledFile",
@@ -95,5 +94,11 @@
     // Language-specific
     "[json]": {
         "editor.tabSize": 4
-    }
+    },
+    "[erb]": {
+        "editor.rulers": [],
+        "editor.tabSize": 4
+    },
+    "workbench.colorTheme": "Castish",
+    "window.titleBarStyle": "native"
 }
