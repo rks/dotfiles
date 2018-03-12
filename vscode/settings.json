@@ -97,6 +97,13 @@
         "editor.rulers": [],
         "editor.tabSize": 4
     },
+    "[html]": {
+        "editor.rulers": [],
+        "editor.tabSize": 4
+    },
+    "[javascript]": {
+        "editor.tabSize": 4
+    },
     "[json]": {
         "editor.tabSize": 4
     },
