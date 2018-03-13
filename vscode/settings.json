@@ -74,20 +74,20 @@
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.fontSize": 16,
     "window.titleBarStyle": "native",
-    "workbench.colorCustomizations": {
-        "editorIndentGuide.background": "#2f2f2f",
-        "editorInfo.foreground": "#057eff",
-        "editorWarning.foreground": "#ff9500",
-        "[RailsCasts Plus Theme]": {
-            "editorGutter.background": "#222222",
-            "sideBar.border": "#202020",
-            "statusBar.border": "#1f1f1f",
-            "statusBar.background": "#333333",
-            "statusBar.noFolderBackground": "#222222",
-            "statusBar.foreground": "#b0b0b0",
-            "titleBar.border": "#404040"
-        }
-    },
+    // "workbench.colorCustomizations": {
+    //     "editorIndentGuide.background": "#2f2f2f",
+    //     "editorInfo.foreground": "#057eff",
+    //     "editorWarning.foreground": "#ff9500",
+    //     "[RailsCasts Plus Theme]": {
+    //         "editorGutter.background": "#222222",
+    //         "sideBar.border": "#202020",
+    //         "statusBar.border": "#1f1f1f",
+    //         "statusBar.background": "#333333",
+    //         "statusBar.noFolderBackground": "#222222",
+    //         "statusBar.foreground": "#b0b0b0",
+    //         "titleBar.border": "#404040"
+    //     }
+    // },
     "workbench.editor.enablePreview": false,
     "workbench.iconTheme": "file-icons-colourless",
     "workbench.startupEditor": "newUntitledFile",
@@ -136,5 +136,6 @@
         "typescript",
         "typescriptreact",
         "yml"
-    ]
+    ],
+    "workbench.colorTheme": "Solarized Dark"
 }
