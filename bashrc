@@ -129,5 +129,14 @@ fi
 # Ruby development server
 source_if_exists "/sandbox/$USER/mw-ruby-development-server/env.bash"
 
+# Visual Studio Code
+prepend_to_path_if_exists "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
+if type code &>/dev/null; then
+    export EDITOR="code --wait"
+    export P4EDITOR="code --wait --new-window"
+    export VISUAL="code --wait"
+fi
+
 # Do this last to allow host-specific overrides
 source_if_exists "$HOME/.bashrc.$(hostname -s)"
