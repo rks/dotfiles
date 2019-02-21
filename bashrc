@@ -63,15 +63,6 @@ fi
 
 source_if_exists $HOME/.bash_aliases
 
-# Ag
-source_if_exists /usr/local/etc/bash_completion.d/ag.bashcomp.bash
-
-# Atom
-if type atom &>/dev/null; then
-    export EDITOR="atom --wait"
-    export VISUAL="atom --wait"
-fi
-
 # Autojump
 if [ -f /usr/share/autojump/autojump.bash ] || [ -f /usr/local/etc/autojump.sh ]; then
     export AUTOJUMP_KEEP_SYMLINKS=1
@@ -103,13 +94,22 @@ export LOCATION=AH
 prepend_to_path_if_exists /usr/local/share/npm/bin
 source_if_exists /usr/local/etc/bash_completion.d/npm
 
+# Visual Studio Code
+prepend_to_path_if_exists "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+if type code &>/dev/null; then
+    export EDITOR="code --wait"
+    export VISUAL="code --wait"
+fi
+
 # Perforce
 export P4CONFIG=.perforce
 export P4EDITOR=$EDITOR
 export P4IGNORE=.gitignore
-export P4LOGINSSO=/hub/bat/share/p4admin.latest/sso/sso-client
 export P4PORT=perforce:1666
 export P4USER=rsouza
+if [ -f /hub/bat/share/p4admin.latest/sso-client ]; then
+    export P4LOGINSSO=/hub/bat/share/p4admin.latest/sso/sso-client
+fi
 
 # rbenv
 if [ -d /usr/local/rbenv ]; then
@@ -128,9 +128,6 @@ fi
 
 # Ruby development server
 source_if_exists "/sandbox/$USER/mw-ruby-development-server/env.bash"
-
-# Visual Studio Code
-prepend_to_path_if_exists "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 # Do this last to allow host-specific overrides
 source_if_exists "$HOME/.bashrc.$(hostname -s)"
