@@ -45,7 +45,7 @@ export EDITOR="vim"
 export VISUAL="vim"
 
 if [ $(uname) == "Darwin" ]; then
-    export PS1="\n[$(hostname -s)] \$(pwd)\n "
+    export PS1="\n\[\033[0;34m\][\$(hostname -s)] \$(pwd)\n\[\033[1;37m\]\[\033[0m\] "
 else
     export PS1="\n[$(hostname -s)] \$(pwd)\n$ "
 fi
@@ -75,8 +75,10 @@ if [ -f /usr/share/autojump/autojump.bash ] || [ -f /usr/local/etc/autojump.sh ]
     fi
 fi
 
-# Docker Compose
+# Docker & Docker Compose
 prepend_to_path_if_exists /opt/docker/bin
+
+export DOCKER_COMPOSE_USER_ID=$(id -u)
 
 # Git
 prepend_to_path_if_exists /usr/local/opt/git/libexec/git-core
@@ -94,7 +96,7 @@ export LOCATION=AH
 prepend_to_path_if_exists /usr/local/share/npm/bin
 source_if_exists /usr/local/etc/bash_completion.d/npm
 
-# Visual Studio Code
+# Visual Studio Code (Have to set $EDITOR before configuring Perforce)
 prepend_to_path_if_exists "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 if type code &>/dev/null; then
     export EDITOR="code --wait"
@@ -125,9 +127,6 @@ if [ -d /opt/ruby/bin ]; then
     export GEM_SPEC_CACHE=/opt/ruby/gems/spec_cache
     export BUNDLE_PATH=/opt/ruby/gems
 fi
-
-# Ruby development server
-source_if_exists "/sandbox/$USER/mw-ruby-development-server/env.bash"
 
 # Do this last to allow host-specific overrides
 source_if_exists "$HOME/.bashrc.$(hostname -s)"
