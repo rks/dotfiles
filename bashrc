@@ -103,6 +103,11 @@ if type code &>/dev/null; then
     export VISUAL="code --wait"
 fi
 
+# OpenSSL (via Homebrew)
+if [ -d $(brew --prefix openssl) ]; then
+    export LIBRARY_PATH=$LIBRARY_PATH:"$(brew --prefix openssl)/lib/"
+fi
+
 # Perforce
 export P4CONFIG=.perforce
 export P4EDITOR=$EDITOR
@@ -114,10 +119,7 @@ if [ -f /hub/bat/share/p4admin.latest/sso-client ]; then
 fi
 
 # rbenv
-if [ -d /usr/local/rbenv ]; then
-    export PATH=/usr/local/rbenv/bin:$PATH
-    export RBENV_ROOT=/usr/local/rbenv
-
+if type rbenv &>/dev/null; then
     eval "$(rbenv init -)"
 fi
 
