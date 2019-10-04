@@ -1,6 +1,9 @@
 function prepend_to_path_if_exists () {
     if [ -d "$1" ]; then
-        export PATH="$1":$PATH
+        case ":$PATH:" in
+            *":$1:"*) :;; # Already exists
+            *) export PATH="$1:$PATH";;
+        esac
     fi
 }
 
@@ -77,7 +80,6 @@ fi
 
 # Docker & Docker Compose
 prepend_to_path_if_exists /opt/docker/bin
-
 export DOCKER_COMPOSE_USER_ID=$(id -u)
 
 # Git
@@ -104,8 +106,10 @@ if type code &>/dev/null; then
 fi
 
 # OpenSSL (via Homebrew)
-if [ -d $(brew --prefix openssl) ]; then
-    export LIBRARY_PATH=$LIBRARY_PATH:"$(brew --prefix openssl)/lib/"
+if type brew &>/dev/null; then
+    if [ -d $(brew --prefix openssl) ]; then
+        export LIBRARY_PATH=$LIBRARY_PATH:"$(brew --prefix openssl)/lib/"
+    fi
 fi
 
 # Perforce
@@ -114,8 +118,8 @@ export P4EDITOR=$EDITOR
 export P4IGNORE=.gitignore
 export P4PORT=perforce:1666
 export P4USER=rsouza
-if [ -f /hub/bat/share/p4admin.latest/sso-client ]; then
-    export P4LOGINSSO=/hub/bat/share/p4admin.latest/sso/sso-client
+if [ -f /mathworks/hub/bat/share/p4admin.latest/sso/sso-client ]; then
+    export P4LOGINSSO=/mathworks/hub/bat/share/p4admin.latest/sso/sso-client
 fi
 
 # rbenv
