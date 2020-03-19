@@ -48,7 +48,11 @@ export EDITOR="vim"
 export VISUAL="vim"
 
 if [ $(uname) == "Darwin" ]; then
-    export PS1="\n\[\033[0;34m\][\$(hostname -s)] \$(pwd)\n\[\033[1;37m\]\[\033[0m\] "
+    if [ $(id -nu) == "randy" ]; then
+        export PS1="\n\[\033[0;32m\][\$(hostname -s)] \$(pwd)\n\[\033[1;37m\]\[\033[0m\] "
+    else
+        export PS1="\n\[\033[0;34m\][\$(hostname -s)] \$(pwd)\n\[\033[1;37m\]\[\033[0m\] "
+    fi
 else
     export PS1="\n[$(hostname -s)] \$(pwd)\n$ "
 fi
