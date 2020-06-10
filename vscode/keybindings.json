@@ -7,5 +7,9 @@
     {
         "key": "cmd+enter",
         "command": "-extension.runQueryBuild"
+    },
+    {
+        "key": "cmd+l",
+        "command": "-extension.runSpecLine"
     }
 ]

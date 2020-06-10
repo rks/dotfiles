@@ -1,12 +1,13 @@
 // Place your settings in this file to overwrite the default settings
 {
-    "editor.fontFamily": "Fira Code",
+    "editor.fontFamily": "FiraCode-Light",
     "editor.fontLigatures": true,
-    "editor.fontSize": 16,
+    "editor.fontSize": 18,
     "editor.minimap.enabled": false,
     "editor.multiCursorModifier": "ctrlCmd",
-    "editor.rulers": [100],
-    "editor.tabSize": 2,
+    "editor.rulers": [
+        100
+    ],
     "editor.tokenColorCustomizations": {
         "textMateRules": [
             {
@@ -74,22 +75,8 @@
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.fontSize": 16,
     "window.titleBarStyle": "native",
-    // "workbench.colorCustomizations": {
-    //     "editorIndentGuide.background": "#2f2f2f",
-    //     "editorInfo.foreground": "#057eff",
-    //     "editorWarning.foreground": "#ff9500",
-    //     "[RailsCasts Plus Theme]": {
-    //         "editorGutter.background": "#222222",
-    //         "sideBar.border": "#202020",
-    //         "statusBar.border": "#1f1f1f",
-    //         "statusBar.background": "#333333",
-    //         "statusBar.noFolderBackground": "#222222",
-    //         "statusBar.foreground": "#b0b0b0",
-    //         "titleBar.border": "#404040"
-    //     }
-    // },
     "workbench.editor.enablePreview": false,
-    "workbench.iconTheme": "file-icons-colourless",
+    "workbench.iconTheme": "city-lights-icons-vsc-light",
     "workbench.startupEditor": "newUntitledFile",
 
     // Language-specific
@@ -108,9 +95,10 @@
         "editor.tabSize": 4
     },
     "[jsonc]": {
+        "editor.insertSpaces": true,
         "editor.tabSize": 4
     },
-    "cSpell.enabledLanguageIds": [
+    "cSpell.enableFiletypes": [
         "c",
         "cpp",
         "csharp",
@@ -130,6 +118,7 @@
         "pub",
         "python",
         "restructuredtext",
+        "ruby",
         "rust",
         "scss",
         "text",
@@ -137,5 +126,71 @@
         "typescriptreact",
         "yml"
     ],
-    "workbench.colorTheme": "Solarized Dark"
+    "editor.renderWhitespace": "all",
+    "cSpell.userWords": [
+        "",
+        "Enqueues",
+        "Evented",
+        "Gemfile",
+        "Kubernetes",
+        "Microservices",
+        "Stateful",
+        "UUID",
+        "backtrace",
+        "bootsnap",
+        "buildable",
+        "calculon",
+        "dedham",
+        "jmullin",
+        "kdusane",
+        "mathworks",
+        "matlab",
+        "mjonchhe",
+        "namespacing",
+        "norwood",
+        "pidfile",
+        "railtie",
+        "readonly",
+        "richag",
+        "rsouza",
+        "rspec",
+        "rubocop",
+        "serializer",
+        "souza",
+        "sshivara",
+        "webaddons"
+    ],
+    "files.associations": {
+        "*.js": "javascript"
+    },
+    "editor.tabSize": 2,
+    "sync.gist": "35a9ee2291342e8a15c39c5081f02981",
+    "auto-close-tag.activationOnLanguage": [
+        "xml",
+        "php",
+        "blade",
+        "ejs",
+        "jinja",
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "vue",
+        "liquid",
+        "erb",
+        "lang-cfml",
+        "cfml",
+        "HTML (Eex)"
+    ],
+    "window.newWindowDimensions": "inherit",
+    "window.zoomLevel": 0,
+    "workbench.colorTheme": "One Dark Pro",
+    "explorer.confirmDelete": false,
+    "ruby.lint": {
+        "rubocop": true
+    },
+    "go.buildOnSave": "off",
+    "window.restoreWindows": "none",
+    "terminal.integrated.macOptionIsMeta": true,
+    "explorer.autoReveal": false
 }
