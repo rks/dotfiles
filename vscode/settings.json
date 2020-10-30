@@ -1,6 +1,6 @@
 // Place your settings in this file to overwrite the default settings
 {
-    "editor.fontFamily": "FiraCode-Light",
+    "editor.fontFamily": "FiraCodeNerdFontComplete-Light",
     "editor.fontLigatures": true,
     "editor.fontSize": 18,
     "editor.minimap.enabled": false,
@@ -76,8 +76,6 @@
     "terminal.integrated.fontSize": 16,
     "window.titleBarStyle": "native",
     "workbench.editor.enablePreview": false,
-    "workbench.iconTheme": "city-lights-icons-vsc-light",
-    "workbench.startupEditor": "newUntitledFile",
 
     // Language-specific
     "[erb]": {
@@ -143,9 +141,12 @@
         "dedham",
         "jmullin",
         "kdusane",
+        "mathworker",
         "mathworks",
         "matlab",
+        "minmax",
         "mjonchhe",
+        "mltbx",
         "namespacing",
         "norwood",
         "pidfile",
@@ -192,5 +193,7 @@
     "go.buildOnSave": "off",
     "window.restoreWindows": "none",
     "terminal.integrated.macOptionIsMeta": true,
-    "explorer.autoReveal": false
+    "explorer.autoReveal": false,
+    "workbench.startupEditor": "newUntitledFile",
+    "remote.SSH.configFile": "/Users/randy/.ssh/config_vscode"
 }
