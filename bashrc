@@ -13,12 +13,12 @@ function source_if_exists () {
     fi
 }
 
-function mkcd () {
-    mkdir -p $1 && cd $1;
-}
-
 function interactive_shell () {
     [[ $- == *i* ]];
+}
+
+function mkcd () {
+    mkdir -p $1 && cd $1;
 }
 
 # Put /usr/local ahead of /usr to give priority to Homebrew/customized apps
@@ -116,14 +116,15 @@ if [ -d /opt/ruby/bin ]; then
     export BUNDLE_PATH=/opt/ruby/gems
 fi
 
+# Do this almost-last to allow host-specific overrides
+source_if_exists "$HOME/.bashrc.$(hostname -s)"
+
+# Do this next-to-last to pick up host-specific overrides
 if [ $(uname) == "Darwin" ]; then
     source_if_exists "$HOME/.bash_prompt"
 else
     export PS1="\n[\h] \$(pwd)\n$ "
 fi
 
-# Do this next-to-last to allow host-specific overrides
-source_if_exists "$HOME/.bashrc.$(hostname -s)"
-
-# Do this last to ensure that `history` is at the end
+# Do this last-last to ensure that `history` is at the end
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND;} history -a"

@@ -1,31 +1,29 @@
-# This prompt requires a font patched by Nerd Fonts (https://www.nerdfonts.com/)
-#
-# One Dark theme colors
-#   background: 39;44;53
-#   grey: 127;132;142
-#   grey1: 32;37;44
-#   grey2: 43;49;61
-#   grey3: 62;72;91
-#   grey4: 92;99;112
-#   grey5: 169;178;192
-#   tan: 109;113;112
-#   red: 244;71;71
-#   coral: 224;108;117
-#   orange: 209;154;102
-#   yellow: 229;192;123
-#   green: 140;197;111
-#   green1: 152;195;121
-#   bluegreen: 86;182;194
-#   blue: 97;175;239
-#   purple: 198;120;221
+# Requirements:
+#   1. macOS (though it could be extended to other platforms easily)
+#   2. A 24-bit-color-capable terminal (e.g., iTerm)
+#   3. A font patched by Nerd Fonts (https://www.nerdfonts.com/)
+#   4. The `__git_ps1` Bash function (`source /usr/local/etc/bash_completion.d/git-prompt.sh`)
+
+# TODO: Make special characters configurable so this works without a Nerd-Fonts-patched font
 
 __prompt_blue="\e[38;2;97;175;239m"
 __prompt_green="\e[38;2;140;197;111m"
 __prompt_grey="\e[38;2;127;132;142m"
 __prompt_orange="\e[38;2;209;154;102m"
-
 __prompt_reset="\e[m"
 __prompt_separator=" \e[38;2;92;99;112m\e[m "
+
+__prompt_main () {
+    if [ -z $PROMPT_MAIN_COLOR_CODE ]; then
+        echo -e "${__prompt_green}"
+    else
+        echo -e "${PROMPT_MAIN_COLOR_CODE}"
+    fi
+}
+
+__prompt_computer_name () {
+    echo $(scutil --get LocalHostName)
+}
 
 __prompt_git () {
     local __branch=$(__git_ps1 "(%s)")
@@ -45,9 +43,28 @@ __prompt_git () {
     echo -e "${__prompt_separator}${__branch_icon} $__branch"
 }
 
-PS1="\n${__prompt_blue}[\u ${__prompt_grey}${__prompt_blue} \h]" # username +  + host
-PS1+="${__prompt_separator}\w"                                    # current directory
-PS1+="\$(__prompt_git)"                                           # Git status, if applicable
-PS1+="$__prompt_reset\n\$ "                                       # newline then "$" or "#"
+PS1="\n$(__prompt_main)[\u ${__prompt_grey}$(__prompt_main) $(__prompt_computer_name)]" # username +  + host
+PS1+="${__prompt_separator}\w"                                                           # current directory
+PS1+="\$(__prompt_git)"                                                                  # Git status, if applicable
+PS1+="$__prompt_reset\n\$ "                                                              # newline then "$" or "#"
 
 export PS1
+
+# One Dark theme colors
+#   background: 39;44;53
+#   grey: 127;132;142
+#   grey1: 32;37;44
+#   grey2: 43;49;61
+#   grey3: 62;72;91
+#   grey4: 92;99;112
+#   grey5: 169;178;192
+#   tan: 109;113;112
+#   red: 244;71;71
+#   coral: 224;108;117
+#   orange: 209;154;102
+#   yellow: 229;192;123
+#   green: 140;197;111
+#   green1: 152;195;121
+#   bluegreen: 86;182;194
+#   blue: 97;175;239
+#   purple: 198;120;221
