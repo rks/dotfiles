@@ -33,9 +33,6 @@ export HISTCONTROL=ignoredups:erasedups
 export HISTSIZE=100000
 export HISTFILESIZE=100000
 
-# Save and reload the history after each command finishes
-export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
-
 # _Really_ use English and UTF-8
 export LANG=en_US.UTF-8
 export LANGUAGE=en
@@ -47,23 +44,13 @@ export TZ="America/New_York"
 export EDITOR="vim"
 export VISUAL="vim"
 
-if [ $(uname) == "Darwin" ]; then
-    if [ $(id -nu) == "randy" ]; then
-        export PS1="\n\[\033[0;32m\][\$(hostname -s)] \$(pwd)\n\[\033[1;37m\]\[\033[0m\] "
-    else
-        export PS1="\n\[\033[0;34m\][\$(hostname -s)] \$(pwd)\n\[\033[1;37m\]\[\033[0m\] "
-    fi
-else
-    export PS1="\n[$(hostname -s)] \$(pwd)\n$ "
-fi
-
 # Don't redirect output on top of existing files
 set -o noclobber
 
 # Case-insensitive filename expansion
 shopt -s nocaseglob
 
-# Enable START/STOP output control.
+# Enable START/STOP output control
 if interactive_shell; then
     stty -ixon
 fi
@@ -73,7 +60,7 @@ source_if_exists $HOME/.bash_aliases
 # Autojump
 if [ -f /usr/share/autojump/autojump.bash ] || [ -f /usr/local/etc/autojump.sh ]; then
     export AUTOJUMP_KEEP_SYMLINKS=1
-    export AUTOJUMP_AUTOCOMPLETE_CMDS='atom cp mv vim'
+    export AUTOJUMP_AUTOCOMPLETE_CMDS='code cp mv vim'
 
     if [ -f /usr/share/autojump/autojump.bash ]; then
         source /usr/share/autojump/autojump.bash
@@ -89,6 +76,7 @@ export DOCKER_COMPOSE_USER_ID=$(id -u)
 # Git
 prepend_to_path_if_exists /usr/local/opt/git/libexec/git-core
 source_if_exists /usr/local/etc/bash_completion.d/git-completion.bash
+source_if_exists /usr/local/etc/bash_completion.d/git-prompt.sh
 
 # Java
 if [ -f /usr/libexec/java_home ]; then
@@ -116,16 +104,6 @@ if type brew &>/dev/null; then
     fi
 fi
 
-# Perforce
-export P4CONFIG=.perforce
-export P4EDITOR=$EDITOR
-export P4IGNORE=.gitignore
-export P4PORT=perforce:1666
-export P4USER=rsouza
-if [ -f /mathworks/hub/bat/share/p4admin.latest/sso/sso-client ]; then
-    export P4LOGINSSO=/mathworks/hub/bat/share/p4admin.latest/sso/sso-client
-fi
-
 # rbenv
 if type rbenv &>/dev/null; then
     eval "$(rbenv init -)"
@@ -138,5 +116,14 @@ if [ -d /opt/ruby/bin ]; then
     export BUNDLE_PATH=/opt/ruby/gems
 fi
 
-# Do this last to allow host-specific overrides
+if [ $(uname) == "Darwin" ]; then
+    source_if_exists "$HOME/.bash_prompt"
+else
+    export PS1="\n[\h] \$(pwd)\n$ "
+fi
+
+# Do this next-to-last to allow host-specific overrides
 source_if_exists "$HOME/.bashrc.$(hostname -s)"
+
+# Do this last to ensure that `history` is at the end
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND;} history -a"
