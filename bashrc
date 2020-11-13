@@ -74,9 +74,12 @@ prepend_to_path_if_exists /opt/docker/bin
 export DOCKER_COMPOSE_USER_ID=$(id -u)
 
 # Git
+# macOS/Homebrew
 prepend_to_path_if_exists /usr/local/opt/git/libexec/git-core
 source_if_exists /usr/local/etc/bash_completion.d/git-completion.bash
 source_if_exists /usr/local/etc/bash_completion.d/git-prompt.sh
+# Debian
+source_if_exists /usr/lib/git-core/git-sh-prompt
 
 # Java
 if [ -f /usr/libexec/java_home ]; then
@@ -90,7 +93,7 @@ export LOCATION=AH
 prepend_to_path_if_exists /usr/local/share/npm/bin
 source_if_exists /usr/local/etc/bash_completion.d/npm
 
-# Visual Studio Code (Have to set $EDITOR before configuring Perforce)
+# Visual Studio Code
 prepend_to_path_if_exists "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 if type code &>/dev/null; then
     export EDITOR="code --wait"
@@ -117,9 +120,13 @@ if [ -d /opt/ruby/bin ]; then
 fi
 
 # Do this almost-last to allow host-specific overrides
-source_if_exists "$HOME/.bashrc.$(hostname -s)"
+if [ $(uname) == "Darwin" ]; then
+    source_if_exists "$HOME/.bashrc.$(scutil --get LocalHostName)"
+else
+    source_if_exists "$HOME/.bashrc.$(hostname -s)"
+fi
 
-# Do this next-to-last to pick up host-specific overrides
+# Do this next-to-last to use host-specific overrides
 if [ $(uname) == "Darwin" ]; then
     source_if_exists "$HOME/.bash_prompt"
 else
