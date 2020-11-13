@@ -41,6 +41,9 @@ export LC_ALL=en_US.UTF-8
 
 export TZ="America/New_York"
 
+# May be overwritten by .bash_prompt
+export PS1="\n[\h] \$(pwd)\n$ "
+
 export EDITOR="vim"
 export VISUAL="vim"
 
@@ -127,11 +130,7 @@ else
 fi
 
 # Do this next-to-last to use host-specific overrides
-if [ $(uname) == "Darwin" ]; then
-    source_if_exists "$HOME/.bash_prompt"
-else
-    export PS1="\n[\h] \$(pwd)\n$ "
-fi
+source_if_exists "$HOME/.bash_prompt"
 
 # Do this last-last to ensure that `history` is at the end
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND;} history -a"
