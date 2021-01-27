@@ -15,57 +15,73 @@ else
     __prompt_logo=$PROMPT_LOGO
 fi
 
-__prompt_blue="\e[38;2;97;175;239m"
-__prompt_green="\e[38;2;140;197;111m"
-__prompt_grey="\e[38;2;127;132;142m"
-__prompt_orange="\e[38;2;209;154;102m"
-__prompt_reset="\e[m"
-__prompt_separator=" \e[38;2;92;99;112m$__prompt_separator_character\e[m "
+if [ $(uname) == "Darwin" ]; then
+    __prompt_hostname=$(scutil --get LocalHostName)
+else
+    __prompt_hostname=$(hostname -s)
+fi
 
-__prompt_main () {
+__prompt_blue="[38;2;97;175;239m"
+__prompt_green="[38;2;140;197;111m"
+__prompt_grey="[38;2;127;132;142m"
+__prompt_orange="[38;2;209;154;102m"
+__prompt_reset="\e[m"
+
+__prompt_main_color () {
     if [ -z $PROMPT_MAIN_COLOR_CODE ]; then
-        echo -e "${__prompt_green}"
+        echo -e "\x1b$__prompt_green"
     else
-        echo -e "${PROMPT_MAIN_COLOR_CODE}"
+        echo -e "\x1b$PROMPT_MAIN_COLOR_CODE"
     fi
 }
 
-__prompt_computer_name () {
-    if [ $(uname) == "Darwin" ]; then
-        echo $(scutil --get LocalHostName)
+__prompt_separator () {
+    echo -e " \x1b[38;2;92;99;112m$__prompt_separator_character\x1b[m "
+}
+
+__prompt_git_status () {
+    __git_status=$(git status --porcelain=v2 2>/dev/null)
+
+    if [ -z "$__git_status" ]; then
+        echo -e "\x1b${__prompt_grey}\x1b[m"
     else
-        echo $(hostname -s)
+        echo -e "\x1b${__prompt_green}\x1b[m"
+    fi
+}
+
+# TODO: Check if an upstream exists
+__prompt_git_ahead_behind () {
+    __local_ref=$(git rev-parse @)
+    __remote_ref=$(git rev-parse @{u} 2>/dev/null)
+    __merge_base=$(git merge-base @ @{u} 2>/dev/null)
+
+    if ([ -z "$__remote_ref" ] && [ -z "$__merge_base"]) || [ "$__local_ref" = "$__remote_ref" ]; then
+        return
+    fi
+
+    if [ $__local_ref = $__merge_base ]; then
+        echo -e " \x1b${__prompt_green}ﰬ\x1b[m"
+    elif [ $__remote_ref = $__merge_base ]; then
+        echo -e " \x1b${__prompt_green}ﰵ\x1b[m"
+    else
+        echo -e " \x1b${__prompt_orange}\x1b[m"
     fi
 }
 
 __prompt_git () {
-    local __branch=$(__git_ps1 "(%s)")
+    __git_branch=$(__git_ps1 "(%s)")
 
-    if [ -z "$__branch" ]; then
-        return
+    if [ -n "$__git_branch" ]; then
+        echo -e "$(__prompt_separator)$__git_branch $(__prompt_git_status)$(__prompt_git_ahead_behind)"
     fi
-
-    local __status=$(git status --porcelain=v2 2>/dev/null)
-
-    if [ -z "$__status" ]; then
-        local __branch_icon="${__prompt_grey}$__prompt_reset"
-    else
-        local __branch_icon="${__prompt_green}$__prompt_reset"
-    fi
-
-    echo -e "${__prompt_separator}${__branch_icon} $__branch"
 }
 
-# username + $__prompt_logo + host
-# current directory
-# Git status, if applicable
-# newline then "$" or "#"
-PS1="\n$(__prompt_main)[\u ${__prompt_grey}${__prompt_logo}$(__prompt_main) $(__prompt_computer_name)]"
-PS1+="${__prompt_separator}\w"
-PS1+="\$(__prompt_git)"
-PS1+="$__prompt_reset\n\$ "
-
-export PS1
+# Prompt parts:
+#   username + $__prompt_logo + host...
+#   then the current directory (\w)...
+#   then Git status, if applicable...
+#   then a newline followed by "$ " or "# "
+export PS1="\n$(__prompt_main_color)[\u \e$__prompt_grey$__prompt_logo$(__prompt_main_color) $__prompt_hostname]$(__prompt_separator)\w\$(__prompt_git)\n\$ "
 
 # One Dark theme colors
 #   background: 39;44;53

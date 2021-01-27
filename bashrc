@@ -28,6 +28,9 @@ prepend_to_path_if_exists /usr/local/netbin
 prepend_to_path_if_exists /local/bin
 prepend_to_path_if_exists $HOME/bin
 
+# Reset
+export PROMPT_COMMAND=
+
 export HISTFILE="$HOME/.bash_history.$(hostname -s)"
 export HISTCONTROL=ignoredups:erasedups
 export HISTSIZE=100000
