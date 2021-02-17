@@ -75,16 +75,18 @@ if [ -f /usr/share/autojump/autojump.bash ] || [ -f /usr/local/etc/autojump.sh ]
     fi
 fi
 
+# z
+source_if_exists /usr/local/etc/profile.d/z.sh
+
 # Docker & Docker Compose
 prepend_to_path_if_exists /opt/docker/bin
 export DOCKER_COMPOSE_USER_ID=$(id -u)
 
-# Git
-# macOS/Homebrew
+# Git: macOS/Homebrew
 prepend_to_path_if_exists /usr/local/opt/git/libexec/git-core
 source_if_exists /usr/local/etc/bash_completion.d/git-completion.bash
 source_if_exists /usr/local/etc/bash_completion.d/git-prompt.sh
-# Debian
+# Git: Debian
 source_if_exists /usr/lib/git-core/git-sh-prompt
 
 # Java
@@ -115,6 +117,8 @@ fi
 
 # rbenv
 if type rbenv &>/dev/null; then
+    export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl)"
+
     eval "$(rbenv init -)"
 fi
 
@@ -136,4 +140,4 @@ fi
 source_if_exists "$HOME/.bash_prompt"
 
 # Do this last-last to ensure that `history` is at the end
-export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND;} history -a"
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND} history -a"
