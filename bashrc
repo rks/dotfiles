@@ -81,6 +81,7 @@ source_if_exists /usr/local/etc/profile.d/z.sh
 # Docker & Docker Compose
 prepend_to_path_if_exists /opt/docker/bin
 export DOCKER_COMPOSE_USER_ID=$(id -u)
+export DOCKER_SCAN_SUGGEST=false
 
 # Git: macOS/Homebrew
 prepend_to_path_if_exists /usr/local/opt/git/libexec/git-core
