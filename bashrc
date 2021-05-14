@@ -78,6 +78,11 @@ fi
 # z
 source_if_exists /usr/local/etc/profile.d/z.sh
 
+# Curl
+if [ -d /usr/local/opt/curl/bin ]; then
+    export PATH="/usr/local/opt/curl/bin:$PATH"
+fi
+
 # Docker & Docker Compose
 prepend_to_path_if_exists /opt/docker/bin
 export DOCKER_COMPOSE_USER_ID=$(id -u)
