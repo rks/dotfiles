@@ -134,6 +134,12 @@ if [ -d /opt/ruby/bin ]; then
     export BUNDLE_PATH=/opt/ruby/gems
 fi
 
+# zoxide
+if type zoxide &>/dev/null; then
+    export _ZO_RESOLVE_SYMLINKS=1
+    eval "$(zoxide init bash)"
+fi
+
 # Do this almost-last to allow host-specific overrides
 if [ $(uname) == "Darwin" ]; then
     source_if_exists "$HOME/.bashrc.$(scutil --get LocalHostName)"
