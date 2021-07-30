@@ -85,6 +85,8 @@ fi
 
 # Docker & Docker Compose
 prepend_to_path_if_exists /opt/docker/bin
+source_if_exists /Applications/Docker.app/Contents/Resources/etc/docker.bash-completion
+source_if_exists /Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion
 export DOCKER_COMPOSE_USER_ID=$(id -u)
 export DOCKER_SCAN_SUGGEST=false
 
@@ -99,9 +101,6 @@ source_if_exists /usr/lib/git-core/git-sh-prompt
 if [ -f /usr/libexec/java_home ]; then
     export JAVA_HOME=$(/usr/libexec/java_home)
 fi
-
-# MathWorks
-export LOCATION=AH
 
 # Node/NPM
 prepend_to_path_if_exists /usr/local/share/npm/bin
