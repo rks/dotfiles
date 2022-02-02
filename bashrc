@@ -72,6 +72,10 @@ source_if_exists $HOME/.bash_aliases
 # asdf
 if [ $__have_homebrew ]; then
     source_if_exists "$(brew --prefix asdf)/libexec/asdf.sh"
+    source_if_exists "$(brew --prefix asdf)/etc/bash_completion.d/asdf.bash"
+elif [ -d "$HOME/.asdf"]; then
+    source_if_exists "$HOME/.asdf/asdf.sh"
+    source_if_exists "$HOME/.asdf/completions/asdf.bash"
 fi
 
 # Curl
