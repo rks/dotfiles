@@ -1,6 +1,5 @@
 __source_path=$(pwd)
 
-ln -s $__source_path/ackrc $HOME/.ackrc
 ln -s $__source_path/bash_aliases $HOME/.bash_aliases
 ln -s $__source_path/bash_profile $HOME/.bash_profile
 ln -s $__source_path/bash_prompt $HOME/.bash_prompt

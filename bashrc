@@ -56,6 +56,12 @@ set -o noclobber
 # Case-insensitive filename expansion
 shopt -s nocaseglob
 
+# Cache slow lookups
+if type brew &>/dev/null; then
+    __have_homebrew=1
+    __openssl_brew_prefix=$(brew --prefix openssl)
+fi
+
 # Enable START/STOP output control
 if interactive_shell; then
     stty -ixon
@@ -63,20 +69,10 @@ fi
 
 source_if_exists $HOME/.bash_aliases
 
-# Autojump
-if [ -f /usr/share/autojump/autojump.bash ] || [ -f /usr/local/etc/autojump.sh ]; then
-    export AUTOJUMP_KEEP_SYMLINKS=1
-    export AUTOJUMP_AUTOCOMPLETE_CMDS='code cp mv vim'
-
-    if [ -f /usr/share/autojump/autojump.bash ]; then
-        source /usr/share/autojump/autojump.bash
-    else
-        source /usr/local/etc/autojump.sh
-    fi
+# asdf
+if [ $__have_homebrew ]; then
+    source_if_exists "$(brew --prefix asdf)/libexec/asdf.sh"
 fi
-
-# z
-source_if_exists /usr/local/etc/profile.d/z.sh
 
 # Curl
 if [ -d /usr/local/opt/curl/bin ]; then
@@ -113,18 +109,15 @@ if type code &>/dev/null; then
     export VISUAL="code --wait"
 fi
 
+# Perforce
+export P4CONFIG=.perforce
+export P4EDITOR=$EDITOR
+export P4PORT=perforce:1666
+export P4USER=rsouza
+
 # OpenSSL (via Homebrew)
-if type brew &>/dev/null; then
-    if [ -d $(brew --prefix openssl) ]; then
-        export LIBRARY_PATH=$LIBRARY_PATH:"$(brew --prefix openssl)/lib/"
-    fi
-fi
-
-# rbenv
-if type rbenv &>/dev/null; then
-    export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl)"
-
-    eval "$(rbenv init -)"
+if [ -d $__openssl_brew_prefix ]; then
+    export LIBRARY_PATH=$LIBRARY_PATH:"$__openssl_brew_prefix/lib/"
 fi
 
 # Ruby
@@ -136,7 +129,10 @@ fi
 
 # zoxide
 if type zoxide &>/dev/null; then
+    source_if_exists /usr/local/etc/profile.d/z.sh
+
     export _ZO_RESOLVE_SYMLINKS=1
+
     eval "$(zoxide init bash)"
 fi
 
