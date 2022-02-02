@@ -56,16 +56,14 @@
         "**/.git": true,
         "**/.hg": true,
         "**/.svn": true,
-        "**/CVS": true
+        "**/CVS": true,
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
     },
     "files.insertFinalNewline": true,
-    "files.trimTrailingWhitespace": true,
-    "materialTheme.cache.workbench.settings": {
-        "themeColours": "Default"
-    },
     "perforce.editOnFileModified": true,
-    "ruby.specClearTerminal": false,
-    "ruby.specCommand": "bundle exec rspec",
     "search.exclude": {
         "**/node_modules": true,
         "**/bower_components": true,
@@ -78,13 +76,18 @@
     "workbench.editor.enablePreview": false,
 
     // Language-specific
+    "[dot]": {
+        "editor.rulers": [],
+        "editor.tabSize": 4
+    },
     "[erb]": {
         "editor.rulers": [],
         "editor.tabSize": 4
     },
     "[html]": {
         "editor.rulers": [],
-        "editor.tabSize": 4
+        "editor.tabSize": 4,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[javascript]": {
         "editor.tabSize": 4
@@ -96,7 +99,26 @@
         "editor.insertSpaces": true,
         "editor.tabSize": 4
     },
+    "editor.renderWhitespace": "all",
+
+    // code-spell-checker
+    "cSpell.dictionaryDefinitions": [
+        {
+            "name": "plantuml",
+            "path": "~/projects/vscode/plantuml.dict.txt"
+        }
+    ],
+    "cSpell.ignorePaths": [
+        "package-lock.json",
+        "node_modules",
+        "vscode-extension",
+        ".git/objects",
+        ".vscode",
+        ".vscode-insiders",
+        "target"
+    ],
     "cSpell.enableFiletypes": [
+        "!gemfile",
         "c",
         "cpp",
         "csharp",
@@ -113,6 +135,7 @@
         "markdown",
         "php",
         "plaintext",
+        "plantuml",
         "pub",
         "python",
         "restructuredtext",
@@ -124,45 +147,99 @@
         "typescriptreact",
         "yml"
     ],
-    "editor.renderWhitespace": "all",
+    "cSpell.languageSettings": [
+        {
+            "languageId": "plantuml",
+            "dictionaries": [
+                "backwards-compatibility",
+                "companies",
+                "en_us",
+                "filetypes",
+                "plantuml",
+                "softwareTerms"
+            ]
+        }
+    ],
     "cSpell.userWords": [
         "",
-        "Enqueues",
-        "Evented",
-        "Gemfile",
-        "Kubernetes",
-        "Microservices",
-        "Stateful",
-        "UUID",
+        "AMQP",
         "backtrace",
+        "basecode",
+        "basecodes",
         "bootsnap",
         "buildable",
         "calculon",
+        "codepoint",
+        "codepoints",
+        "datacenter",
         "dedham",
+        "downcase",
+        "enduml",
+        "Enqueues",
+        "Evented",
+        "fileworks",
+        "geck",
+        "Gemfile",
+        "hashicorp",
+        "IGNORECASE",
+        "integ",
         "jmullin",
         "kdusane",
+        "kubeadm",
+        "kubelet",
+        "Kubernetes",
+        "Kunal",
+        "Kunal's",
+        "Locrian",
         "mathworker",
         "mathworks",
         "matlab",
+        "matlabcentral",
+        "Microservices",
+        "middlewares",
         "minmax",
+        "Mixolydian",
         "mjonchhe",
+        "mlappinstall",
+        "mlpkginstall",
         "mltbx",
+        "MULTILINE",
         "namespacing",
+        "nofollow",
+        "noopener",
+        "noreferrer",
         "norwood",
+        "numericality",
         "pidfile",
+        "prepend",
+        "querystring",
+        "qunit",
         "railtie",
+        "readlines",
         "readonly",
+        "remarketing",
         "richag",
         "rsouza",
         "rspec",
         "rubocop",
+        "safelist",
         "serializer",
+        "Simulink",
+        "skinparam",
         "souza",
+        "Sprintf",
         "sshivara",
+        "startuml",
+        "Stateful",
+        "struct",
+        "unarchived",
+        "UUID",
         "webaddons"
     ],
+
     "files.associations": {
-        "*.js": "javascript"
+        "*.js": "javascript",
+        ".bash*": "shellscript"
     },
     "editor.tabSize": 2,
     "sync.gist": "35a9ee2291342e8a15c39c5081f02981",
@@ -184,16 +261,58 @@
         "HTML (Eex)"
     ],
     "window.newWindowDimensions": "inherit",
-    "window.zoomLevel": 0,
     "workbench.colorTheme": "One Dark Pro",
     "explorer.confirmDelete": false,
-    "ruby.lint": {
-        "rubocop": true
-    },
     "go.buildOnSave": "off",
     "window.restoreWindows": "none",
     "terminal.integrated.macOptionIsMeta": true,
     "explorer.autoReveal": false,
     "workbench.startupEditor": "newUntitledFile",
-    "remote.SSH.configFile": "/Users/randy/.ssh/config_vscode"
+    "remote.SSH.configFile": "/Users/randy/.ssh/config_vscode",
+    "files.trimTrailingWhitespace": true,
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
+    "editor.linkedEditing": true,
+    "tidyHtml.formatOnSave": false,
+    "tidyHtml.optionsTidy": {
+        "break-before-br": false,
+        "indent-attributes": false,
+        "indent-spaces": 4,
+        "indent-with-tabs": false,
+        "indent": "auto",
+        "input-xml": false,
+        "markup": true,
+        "numeric-entities": false,
+        "output-xml": false,
+        "preserve-entities": true,
+        "quote-ampersand": false,
+        "quote-marks": false,
+        "quote-nbsp": true,
+        "show-errors": 6,
+        "show-warnings": true,
+        "sort-attributes": "alpha",
+        "uppercase-attributes": false,
+        "uppercase-tags": false,
+        "wrap": 0
+    },
+    "redhat.telemetry.enabled": true,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "go.addTags": {
+        "transform": "camelcase"
+    },
+    "java.help.showReleaseNotes": false,
+    "eslint.format.enable": true,
+    "terminal.integrated.defaultProfile.osx": "bash",
+    "ruby.lint": {
+        "rubocop": true
+    },
+    "ruby.specClearTerminal": false,
+    "ruby.specCommand": "bundle exec rspec",
+    "ruby.rubocop.useBundler": true,
+    "ruby.interpreter.commandPath": "/Users/randy/.rbenv/shims/ruby",
+    "git.confirmSync": false,
+    "cSpell.enabled": true,
+    "python.diagnostics.sourceMapsEnabled": true
 }
