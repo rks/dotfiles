@@ -117,8 +117,6 @@ fi
 
 # rbenv
 if type rbenv &>/dev/null && (! asdf current ruby &>/dev/null); then
-    echo "Using rbenv"
-
     export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl)"
 
     eval "$(rbenv init -)"
