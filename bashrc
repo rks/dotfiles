@@ -84,9 +84,6 @@ if [ -d /usr/local/opt/curl/bin ]; then
 fi
 
 # Docker & Docker Compose
-prepend_to_path_if_exists /opt/docker/bin
-source_if_exists /Applications/Docker.app/Contents/Resources/etc/docker.bash-completion
-source_if_exists /Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion
 export DOCKER_COMPOSE_USER_ID=$(id -u)
 export DOCKER_SCAN_SUGGEST=false
 
@@ -113,15 +110,18 @@ if type code &>/dev/null; then
     export VISUAL="code --wait"
 fi
 
-# Perforce
-export P4CONFIG=.perforce
-export P4EDITOR=$EDITOR
-export P4PORT=perforce:1666
-export P4USER=rsouza
-
 # OpenSSL (via Homebrew)
 if [ -d $__openssl_brew_prefix ]; then
     export LIBRARY_PATH=$LIBRARY_PATH:"$__openssl_brew_prefix/lib/"
+fi
+
+# rbenv
+if type rbenv &>/dev/null && (! asdf current ruby &>/dev/null); then
+    echo "Using rbenv"
+
+    export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl)"
+
+    eval "$(rbenv init -)"
 fi
 
 # Ruby
