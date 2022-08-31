@@ -21,10 +21,21 @@ function mkcd () {
     mkdir -p $1 && cd $1;
 }
 
-# Put /usr/local ahead of /usr to give priority to Homebrew/customized apps
+# Put Homebrew ahead of /usr to give priority to Homebrew/customized apps
 prepend_to_path_if_exists /usr/local/bin
-prepend_to_path_if_exists /usr/local/sbin
-prepend_to_path_if_exists /usr/local/netbin
+prepend_to_path_if_exists /opt/homebrew/bin
+
+# Cache slow lookups
+if type brew &>/dev/null; then
+    __have_homebrew=1
+    __brew_prefix=$(brew --prefix)
+    __openssl_brew_prefix=$(brew --prefix openssl)
+else
+    __brew_prefix=/dev/null
+fi
+
+prepend_to_path_if_exists $__brew_prefix/netbin
+prepend_to_path_if_exists $__brew_prefix/sbin
 prepend_to_path_if_exists /local/bin
 prepend_to_path_if_exists $HOME/bin
 
@@ -56,12 +67,6 @@ set -o noclobber
 # Case-insensitive filename expansion
 shopt -s nocaseglob
 
-# Cache slow lookups
-if type brew &>/dev/null; then
-    __have_homebrew=1
-    __openssl_brew_prefix=$(brew --prefix openssl)
-fi
-
 # Enable START/STOP output control
 if interactive_shell; then
     stty -ixon
@@ -79,8 +84,8 @@ elif [ -d "$HOME/.asdf" ]; then
 fi
 
 # Curl
-if [ -d /usr/local/opt/curl/bin ]; then
-    export PATH="/usr/local/opt/curl/bin:$PATH"
+if [ -d $__brew_prefix/opt/curl/bin ]; then
+    export PATH="$__brew_prefix/opt/curl/bin:$PATH"
 fi
 
 # Docker & Docker Compose
@@ -88,14 +93,14 @@ export DOCKER_COMPOSE_USER_ID=$(id -u)
 export DOCKER_SCAN_SUGGEST=false
 
 # Git: macOS/Homebrew
-prepend_to_path_if_exists /usr/local/opt/git/libexec/git-core
-source_if_exists /usr/local/etc/bash_completion.d/git-completion.bash
-source_if_exists /usr/local/etc/bash_completion.d/git-prompt.sh
+prepend_to_path_if_exists $__brew_prefix/opt/git/libexec/git-core
+source_if_exists $__brew_prefix/etc/bash_completion.d/git-completion.bash
+source_if_exists $__brew_prefix/etc/bash_completion.d/git-prompt.sh
 # Git: Debian
 source_if_exists /usr/lib/git-core/git-sh-prompt
 
 # Java
-if [ -f /usr/libexec/java_home ]; then
+if [ -f /usr/libexec/java_home ] && (/usr/libexec/java_home &>/dev/null); then
     export JAVA_HOME=$(/usr/libexec/java_home)
 fi
 
@@ -120,13 +125,6 @@ if type rbenv &>/dev/null && (! asdf current ruby &>/dev/null); then
     export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl)"
 
     eval "$(rbenv init -)"
-fi
-
-# Ruby
-if [ -d /opt/ruby/bin ]; then
-    export PATH=/opt/ruby/bin:$PATH
-    export GEM_SPEC_CACHE=/opt/ruby/gems/spec_cache
-    export BUNDLE_PATH=/opt/ruby/gems
 fi
 
 # zoxide
