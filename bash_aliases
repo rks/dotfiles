@@ -11,6 +11,4 @@ alias less="less -g -i -J -m -Q -u"
 
 alias pgrep="pgrep -f -l"
 
-alias mw="/mathworks/hub/bat/common/bin/mw"
-
 alias fdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
