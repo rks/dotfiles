@@ -6,3 +6,4 @@ Copy en_US.* from:
     https://github.com/LibreOffice/dictionaries/tree/master/en
 to
     $HOME/Library/Spelling
+
