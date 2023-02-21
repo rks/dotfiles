@@ -14,3 +14,4 @@ for _plugin in golang nodejs ruby; do
     asdf install $_plugin latest
     asdf global $_plugin latest
 done
+
