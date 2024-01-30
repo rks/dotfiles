@@ -12,3 +12,6 @@ alias less="less -g -i -J -m -Q -u"
 alias pgrep="pgrep -f -l"
 
 alias fdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
+
+alias mw-mvn="mw -using Cwebaddons mvn --no-transfer-progress"
+

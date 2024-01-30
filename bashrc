@@ -13,41 +13,29 @@ function source_if_exists () {
     fi
 }
 
-function interactive_shell () {
-    [[ $- == *i* ]];
-}
-
 function mkcd () {
     mkdir -p $1 && cd $1;
 }
 
-# Put Homebrew ahead of /usr to give priority to Homebrew/customized apps
-prepend_to_path_if_exists /usr/local/bin
-prepend_to_path_if_exists /opt/homebrew/bin
-
-# Cache slow lookups
-if type brew &>/dev/null; then
-    __have_homebrew=1
-    __brew_prefix=$(brew --prefix)
-    __openssl_brew_prefix=$(brew --prefix openssl)
+if [ $(uname) == "Darwin" ]; then
+    __is_mac=1
+    __short_hostname=$(scutil --get LocalHostName)
 else
-    __brew_prefix=/dev/null
+    __is_mac=0
+    __short_hostname=$(hostname -s)
 fi
-
-prepend_to_path_if_exists $__brew_prefix/netbin
-prepend_to_path_if_exists $__brew_prefix/sbin
-prepend_to_path_if_exists /local/bin
-prepend_to_path_if_exists $HOME/bin
 
 # Reset
 export PROMPT_COMMAND=
 
-export HISTFILE="$HOME/.bash_history.$(hostname -s)"
+export HISTFILE="$HOME/.bash_history.$__short_hostname"
 export HISTCONTROL=ignoredups:erasedups
 export HISTSIZE=100000
 export HISTFILESIZE=100000
 
-# _Really_ use English and UTF-8
+export EDITOR="vim"
+export VISUAL="vim"
+
 export LANG=en_US.UTF-8
 export LANGUAGE=en
 export LC_CTYPE=en_US.UTF-8
@@ -55,96 +43,61 @@ export LC_ALL=en_US.UTF-8
 
 export TZ="America/New_York"
 
-# May be overwritten by .bash_prompt
-export PS1="\n[\h] \$(pwd)\n$ "
+source_if_exists "$HOME/.bash_aliases"
 
-export EDITOR="vim"
-export VISUAL="vim"
+# Homebrew
+if type brew &>/dev/null; then
+    __brew_prefix=$(brew --prefix)
+    __brew_openssl_prefix=$(brew --prefix openssl)
 
-# Don't redirect output on top of existing files
-set -o noclobber
+    # Curl
+    prepend_to_path_if_exists $__brew_prefix/opt/curl/bin
 
-# Case-insensitive filename expansion
-shopt -s nocaseglob
+    # Git
+    prepend_to_path_if_exists $__brew_prefix/opt/git/libexec/git-core
+    source_if_exists $__brew_prefix/etc/bash_completion.d/git-completion.bash
+    source_if_exists $__brew_prefix/etc/bash_completion.d/git-prompt.sh
 
-# Enable START/STOP output control
-if interactive_shell; then
-    stty -ixon
+    # OpenSSL
+    if [ -d $__brew_openssl_prefix ]; then
+        prepend_to_path_if_exists $__brew_openssl_prefix/bin
+        export LIBRARY_PATH=$LIBRARY_PATH:"$__brew_openssl_prefix/lib/"
+
+        # rbenv
+        export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$__brew_openssl_prefix"
+    fi
+else
+    # Git
+    source_if_exists /usr/lib/git-core/git-sh-prompt
 fi
 
-source_if_exists $HOME/.bash_aliases
-
-# asdf
-if [ $__have_homebrew ]; then
-    source_if_exists "$(brew --prefix asdf)/libexec/asdf.sh"
-    source_if_exists "$(brew --prefix asdf)/etc/bash_completion.d/asdf.bash"
-elif [ -d "$HOME/.asdf" ]; then
-    source_if_exists "$HOME/.asdf/asdf.sh"
-    source_if_exists "$HOME/.asdf/completions/asdf.bash"
-fi
-
-# Curl
-if [ -d $__brew_prefix/opt/curl/bin ]; then
-    export PATH="$__brew_prefix/opt/curl/bin:$PATH"
-fi
-
-# Docker & Docker Compose
-export DOCKER_COMPOSE_USER_ID=$(id -u)
+# Docker
 export DOCKER_SCAN_SUGGEST=false
+export DOCKER_CLI_HINTS=false
 
-# Git: macOS/Homebrew
-prepend_to_path_if_exists $__brew_prefix/opt/git/libexec/git-core
-source_if_exists $__brew_prefix/etc/bash_completion.d/git-completion.bash
-source_if_exists $__brew_prefix/etc/bash_completion.d/git-prompt.sh
-# Git: Debian
-source_if_exists /usr/lib/git-core/git-sh-prompt
-
-# Java
-if [ -f /usr/libexec/java_home ] && (/usr/libexec/java_home &>/dev/null); then
-    export JAVA_HOME=$(/usr/libexec/java_home)
+# rbenv
+if type rbenv &>/dev/null; then
+    eval "$(rbenv init -)"
 fi
-
-# Node/NPM
-prepend_to_path_if_exists /usr/local/share/npm/bin
-source_if_exists /usr/local/etc/bash_completion.d/npm
 
 # Visual Studio Code
-prepend_to_path_if_exists "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 if type code &>/dev/null; then
     export EDITOR="code --wait"
     export VISUAL="code --wait"
 fi
 
-# OpenSSL (via Homebrew)
-if [ -d $__openssl_brew_prefix ]; then
-    export LIBRARY_PATH=$LIBRARY_PATH:"$__openssl_brew_prefix/lib/"
-fi
-
-# rbenv
-if type rbenv &>/dev/null && (! asdf current ruby &>/dev/null); then
-    export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl)"
-
-    eval "$(rbenv init -)"
-fi
-
 # zoxide
 if type zoxide &>/dev/null; then
-    source_if_exists /usr/local/etc/profile.d/z.sh
-
     export _ZO_RESOLVE_SYMLINKS=1
 
     eval "$(zoxide init bash)"
 fi
 
 # Do this almost-last to allow host-specific overrides
-if [ $(uname) == "Darwin" ]; then
-    source_if_exists "$HOME/.bashrc.$(scutil --get LocalHostName)"
-else
-    source_if_exists "$HOME/.bashrc.$(hostname -s)"
-fi
+source_if_exists "$HOME/.bashrc.$__short_hostname"
 
-# Do this next-to-last to use host-specific overrides
+# Do this next-to-last to base the prompt on any host-specific overrides
 source_if_exists "$HOME/.bash_prompt"
 
-# Do this last-last to ensure that `history` is at the end
+# Do this last-last to ensure that `history -a` is at the end
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND} history -a"

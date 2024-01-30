@@ -60,9 +60,9 @@ __prompt_git_ahead_behind () {
     fi
 
     if [ $__local_ref = $__merge_base ]; then
-        echo -e " \x1b${__prompt_green}ﰬ\x1b[m"
+        echo -e " \x1b${__prompt_green}󰁆\x1b[m"
     elif [ $__remote_ref = $__merge_base ]; then
-        echo -e " \x1b${__prompt_green}ﰵ\x1b[m"
+        echo -e " \x1b${__prompt_green}󰁞\x1b[m"
     else
         echo -e " \x1b${__prompt_orange}\x1b[m"
     fi
